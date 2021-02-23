@@ -1,51 +1,41 @@
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-
-
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+
+import Home from './src/Home';
+import DashBoard from './src/DashBoard';
 
 const Stack = createStackNavigator();
+const BottomStack = createBottomTabNavigator();
 
-function HomeScreen() {
+function StackScreens() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Home" component={BottomScreens} />
+    </Stack.Navigator>
   );
 }
 
-function App(){
- return(
-<NavigationContainer>
-<Stack.Navigator>
-<Stack.Screen name="Home" component={HomeScreen} />
-</Stack.Navigator>
-</NavigationContainer>
+function BottomScreens() {
+  return (
+    <BottomStack.Navigator tabBarOptions={{activeTintColor: '#e91e63'}}>
+      <BottomStack.Screen name="Home" component={Home} />
+      <BottomStack.Screen name="DashBoard" component={DashBoard} />
+    </BottomStack.Navigator>
+  );
+}
 
- )};
-
-
-// const App: () => React$Node = () => {
-//   return (
-//     <>
-//       <StatusBar barStyle="light-content" backgroundColor='blue'/>
-//       <SafeAreaView>
-//         <ScrollView>
-//         </ScrollView>
-//       </SafeAreaView>
-//     </>
-//   );
-// };
-
+function App() {
+  return (
+    <>
+      <NavigationContainer>
+        <StackScreens />
+      </NavigationContainer>
+    </>
+  );
+}
 
 export default App;
